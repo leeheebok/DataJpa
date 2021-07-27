@@ -42,16 +42,17 @@ public class MemberJpaRepository {
         return em.find(Member.class, id);
     }
 
-    public List<Member> findUserAndGreaterThen(String usename, int age){
-        return em.createQuery("select m from Member m where m.username = :username and m.age > :age")
-                .setParameter("username", usename)
+    public List<Member> findByPage(int age, int offset, int limit) {
+        return em.createQuery("select m from Member m where m.age = :age order by m.username desc")
                 .setParameter("age", age)
+                .setFirstResult(offset)
+                .setMaxResults(limit)
                 .getResultList();
     }
-
-    public List<Member> findByUsername(String username) {
-        return em.createNamedQuery("Member.findByUsername", Member.class)
-                .setParameter("username", username)
-                .getResultList();
-    }
+    public long totalCount(int age) {
+        return em.createQuery("select count(m) from Member m where m.age = :age", Long.class)
+                .setParameter("age", age)
+                .getSingleResult();
+        }
 }
+
