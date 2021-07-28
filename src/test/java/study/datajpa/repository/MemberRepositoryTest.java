@@ -59,5 +59,24 @@ class MemberRepositoryTest {
         long deletedCount = memberRepository.count();
         assertThat(deletedCount).isEqualTo(0);
     }
+    @Test
+    public void paging(){
+        memberRepository.save(new Member("member1", 10));
+        memberRepository.save(new Member("member2", 10));
+        memberRepository.save(new Member("member3", 10));
+        memberRepository.save(new Member("member4", 10));
+        memberRepository.save(new Member("member5", 10));
+
+        int age = 10;
+        int offset = 0;
+        int limit = 3;
+        //when
+        //페이지 계산 공식 적용...
+        // totalPage = totalCount / size ...
+        // 마지막 페이지 ... // 최초 페이지 ..
+
+        //then
+
+    }
 
 }
